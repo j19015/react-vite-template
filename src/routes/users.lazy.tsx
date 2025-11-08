@@ -1,18 +1,47 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
-import { Suspense, lazy } from "react";
+import { Suspense } from "react";
 import LoadingSpinner from "@/components/LoadingSpinner";
-
-// Lazy load the users component
-const UsersContent = lazy(() => import("@/components/UsersExample"));
+import { useUsers } from "@/hooks/useUsers";
+import * as styles from "./users.css";
 
 export const Route = createLazyFileRoute("/users")({
-  component: Users,
+  component: UsersPage,
 });
 
-function Users() {
+function UsersPage() {
   return (
     <Suspense fallback={<LoadingSpinner />}>
-      <UsersContent />
+      <UsersList />
     </Suspense>
+  );
+}
+
+function UsersList() {
+  const { data: users, isLoading, error } = useUsers();
+
+  if (isLoading) return <LoadingSpinner />;
+
+  if (error) {
+    return (
+      <div className={styles.error}>
+        <h2>Error loading users</h2>
+        <p>{error.message}</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className={styles.container}>
+      <h1 className={styles.title}>Users</h1>
+      <div className={styles.grid}>
+        {users?.map((user) => (
+          <div key={user.id} className={styles.card}>
+            <h2 className={styles.cardTitle}>{user.name}</h2>
+            <p className={styles.cardText}>@{user.username}</p>
+            <p className={styles.cardEmail}>{user.email}</p>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }

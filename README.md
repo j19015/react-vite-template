@@ -1,18 +1,19 @@
 # React + Vite SPA Template
 
-React + Vite + TanStack Router + Zustand + Emotion で構築されたモダンなSPAアプリケーションテンプレート。
+React + Vite + TanStack Router + Zustand + vanilla-extract で構築されたモダンなSPAアプリケーションテンプレート。
 
 ## 技術スタック
 
 - **Framework**: React 19
 - **Build Tool**: Vite
 - **Language**: TypeScript
-- **Routing**: TanStack Router (ファイルベースルーティング)
+- **Routing**: TanStack Router (ファイルベースルーティング + Lazy Loading)
 - **State Management**: Zustand (Persist & DevTools対応)
 - **API Client**: TanStack Query + Axios
-- **Styling**: Emotion (CSS-in-JS)
+- **Styling**: vanilla-extract (TypeScript CSS-in-JS)
 - **Testing**: Vitest + Testing Library
-- **Code Quality**: Prettier + ESLint (Type-aware) + Husky + lint-staged
+- **Code Quality**: Prettier + ESLint (TypeScript Type-Aware) + Husky + lint-staged
+- **Error Handling**: React Error Boundary
 - **Deployment**: Vercel
 
 ## セットアップ
@@ -74,31 +75,35 @@ react-vite-template/
 │   └── pull_request_template.md
 ├── .vscode/                 # VSCode設定
 ├── src/
-│   ├── api/                 # API層（Axiosクライアント）
-│   │   └── users.ts         # ユーザーAPI
 │   ├── components/          # 共通コンポーネント
-│   │   ├── ErrorBoundary.tsx  # エラーバウンダリ
-│   │   ├── LoadingSpinner.tsx # ローディングスピナー
-│   │   └── UsersExample.tsx   # TanStack Query使用例
+│   │   ├── ErrorBoundary.tsx       # エラーバウンダリ
+│   │   ├── ErrorBoundary.css.ts    # vanilla-extractスタイル
+│   │   ├── LoadingSpinner.tsx      # ローディングスピナー
+│   │   └── LoadingSpinner.css.ts   # vanilla-extractスタイル
 │   ├── hooks/               # カスタムフック
 │   │   └── useUsers.ts      # TanStack Queryフック
 │   ├── lib/                 # ライブラリ設定
+│   │   ├── api.ts           # API関数
 │   │   └── axios.ts         # Axios設定
 │   ├── routes/              # TanStack Router ルート（ファイルベース）
 │   │   ├── __root.tsx       # ルートレイアウト
+│   │   ├── __root.css.ts    # ルートスタイル
 │   │   ├── index.tsx        # / ページ（Zustand例）
 │   │   ├── about.tsx        # /about ページ
-│   │   └── users.lazy.tsx   # /users ページ（コード分割）
+│   │   ├── users.lazy.tsx   # /users ページ（コード分割 + Suspense）
+│   │   └── users.css.ts     # usersページスタイル
 │   ├── stores/              # Zustand ストア
 │   │   ├── __tests__/       # ストアのテスト
 │   │   └── useCounterStore.ts # カウンターストア
+│   ├── types/               # TypeScript型定義
+│   │   └── user.ts          # ユーザー関連の型
 │   ├── test/                # テスト設定
 │   ├── main.tsx             # エントリーポイント
 │   ├── index.css            # グローバルスタイル
 │   ├── vite-env.d.ts        # 環境変数の型定義
 │   └── routeTree.gen.ts     # TanStack Router自動生成（git無視）
 ├── public/                  # 静的ファイル
-├── vite.config.ts           # Vite設定
+├── vite.config.ts           # Vite + vanilla-extract設定
 ├── vercel.json              # Vercel設定
 └── tsconfig.json            # TypeScript設定
 ```
@@ -117,22 +122,34 @@ react-vite-template/
 
 軽量で使いやすい状態管理。ホームページのカウンター例を参照。
 
-### 4. Emotion (CSS-in-JS)
+### 4. vanilla-extract (TypeScript CSS)
 
-TypeScript対応のスタイリング。全コンポーネントで使用例あり。
+型安全でゼロランタイムなCSS-in-TypeScript。コンポーネントの隣に`.css.ts`ファイルを配置。
+
+**Button.css.ts:**
 
 ```typescript
-import styled from "@emotion/styled";
+import { style } from "@vanilla-extract/css";
 
-const Button = styled.button`
-  background-color: #2563eb;
-  color: white;
-  padding: 0.5rem 1rem;
+export const button = style({
+  backgroundColor: "#2563eb",
+  color: "white",
+  padding: "0.5rem 1rem",
+  borderRadius: "0.25rem",
+  ":hover": {
+    backgroundColor: "#1d4ed8",
+  },
+});
+```
 
-  &:hover {
-    background-color: #1d4ed8;
-  }
-`;
+**Button.tsx:**
+
+```typescript
+import * as styles from "./Button.css";
+
+export function Button() {
+  return <button className={styles.button}>Click me</button>;
+}
 ```
 
 ### 5. 型安全な環境変数
