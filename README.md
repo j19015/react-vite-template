@@ -4,16 +4,61 @@ React + Vite + TanStack Router + Zustand + vanilla-extract で構築されたモ
 
 ## 技術スタック
 
+### コア
+
 - **Framework**: React 19
-- **Build Tool**: Vite
+- **Build Tool**: Vite + @vitejs/plugin-react-swc (高速ビルド)
 - **Language**: TypeScript
 - **Routing**: TanStack Router (ファイルベースルーティング + Lazy Loading)
-- **State Management**: Zustand (Persist & DevTools対応)
+- **State Management**:
+  - Zustand (グローバル状態管理、Persist & DevTools対応)
+  - Jotai (アトミック状態管理)
 - **API Client**: TanStack Query + Axios
 - **Styling**: vanilla-extract (TypeScript CSS-in-JS)
+
+### フォーム & バリデーション
+
+- **Form Management**: react-hook-form
+- **Validation**: Zod
+- **Integration**: @hookform/resolvers
+
+### UI コンポーネント & アニメーション
+
+- **UI Primitives**: Radix UI (Dialog, Dropdown, Tooltip, Tabs, など)
+- **Icons**: Lucide React
+- **Animations**:
+  - Framer Motion (高度なアニメーション)
+  - @formkit/auto-animate (自動アニメーション)
+- **Utilities**: clsx (条件付きクラス名)
+
+### ユーティリティ
+
+- **Date**: date-fns (日付フォーマット & 計算)
+- **IDs**: nanoid (ユニークID生成)
+- **Pattern Matching**: ts-pattern (型安全なパターンマッチング)
+- **Types**: type-fest (TypeScriptユーティリティ型)
+- **Immutable Updates**: immer (シンプルなイミュータブル更新)
+
+### 国際化
+
+- **i18n**: i18next + react-i18next
+
+### 開発者体験
+
 - **Testing**: Vitest + Testing Library
 - **Code Quality**: Prettier + ESLint (TypeScript Type-Aware) + Husky + lint-staged
+- **Type Checking**: vite-plugin-checker (リアルタイム型チェック)
+- **API Mocking**: MSW (Mock Service Worker)
 - **Error Handling**: React Error Boundary
+
+### ビルド最適化
+
+- **PWA**: vite-plugin-pwa (Progressive Web App)
+- **Compression**: vite-plugin-compression (Gzip圧縮)
+- **Image Optimization**: vite-plugin-image-optimizer
+
+### デプロイ
+
 - **Deployment**: Vercel
 
 ## セットアップ
@@ -118,9 +163,10 @@ react-vite-template/
 
 型安全なAPI呼び出しとキャッシング。`src/hooks/useUsers.ts` と `src/api/users.ts` を参照。
 
-### 3. Zustand
+### 3. Zustand & Jotai
 
-軽量で使いやすい状態管理。ホームページのカウンター例を参照。
+- **Zustand**: グローバル状態管理。ホームページのカウンター例を参照。
+- **Jotai**: アトミック状態管理。軽量で分散した状態管理に最適。
 
 ### 4. vanilla-extract (TypeScript CSS)
 
@@ -152,7 +198,77 @@ export function Button() {
 }
 ```
 
-### 5. 型安全な環境変数
+### 5. React Hook Form + Zod
+
+型安全なフォームバリデーション。Zodスキーマを使用して入力データを検証。
+
+```typescript
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
+const schema = z.object({
+  email: z.string().email(),
+  age: z.number().min(18),
+});
+
+type FormData = z.infer<typeof schema>;
+
+const {
+  register,
+  handleSubmit,
+  formState: { errors },
+} = useForm<FormData>({
+  resolver: zodResolver(schema),
+});
+```
+
+### 6. Radix UI コンポーネント
+
+アクセシブルで無駄のないUIプリミティブ。Dialog、Dropdown、Tooltip、Tabsなど。
+
+```typescript
+import * as Dialog from "@radix-ui/react-dialog";
+
+<Dialog.Root>
+  <Dialog.Trigger>Open</Dialog.Trigger>
+  <Dialog.Portal>
+    <Dialog.Overlay />
+    <Dialog.Content>
+      <Dialog.Title>Title</Dialog.Title>
+      <Dialog.Description>Description</Dialog.Description>
+    </Dialog.Content>
+  </Dialog.Portal>
+</Dialog.Root>
+```
+
+### 7. Framer Motion & Auto-Animate
+
+- **Framer Motion**: 高度なアニメーション制御
+- **Auto-Animate**: 要素の追加・削除を自動的にアニメーション化
+
+### 8. ts-pattern
+
+型安全なパターンマッチング。複雑な条件分岐を読みやすく記述。
+
+```typescript
+import { match } from "ts-pattern";
+
+const result = match(value)
+  .with({ status: "success" }, (data) => `Success: ${data}`)
+  .with({ status: "error" }, (err) => `Error: ${err}`)
+  .otherwise(() => "Unknown");
+```
+
+### 9. MSW (Mock Service Worker)
+
+開発環境でAPIをモック。`src/mocks/handlers.ts` でハンドラーを定義。
+
+### 10. i18next
+
+多言語対応。`src/i18n/config.ts` で言語リソースを設定。
+
+### 11. 型安全な環境変数
 
 `src/vite-env.d.ts` で環境変数の型を定義。
 
@@ -160,13 +276,25 @@ export function Button() {
 const apiUrl = import.meta.env.VITE_API_BASE_URL; // 型安全
 ```
 
-### 6. Error Boundary
+### 12. Error Boundary
 
 本番環境でのエラーハンドリング。`src/components/ErrorBoundary.tsx` を参照。
 
-### 7. 型厳密なESLint
+### 13. 型厳密なESLint
 
 TypeScriptの型チェックを含む厳密なLintルール。
+
+### 14. 包括的な例
+
+`/examples` ページですべてのライブラリの実装例を確認できます：
+
+- フォーム管理（React Hook Form + Zod）
+- Radix UIコンポーネント
+- アニメーション（Framer Motion & Auto-Animate）
+- アイコン（Lucide React）
+- 状態管理（Jotai）
+- パターンマッチング（ts-pattern）
+- 日付操作（date-fns）
 
 ## コード品質
 

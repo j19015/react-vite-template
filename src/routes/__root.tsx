@@ -16,6 +16,9 @@ export const Route = createRootRoute({
           <Link to="/users" className={styles.link}>
             Users (Lazy)
           </Link>
+          <Link to="/examples" className={styles.link}>
+            Examples
+          </Link>
         </nav>
       </div>
       <main className={styles.main}>
