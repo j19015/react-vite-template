@@ -29,7 +29,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Generate route tree
-        run: npx tsr generate
+        run: pnpm run routes:generate
 
       - name: Run lint
         run: pnpm run lint
