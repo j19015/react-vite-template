@@ -1,154 +1,247 @@
-import { createFileRoute } from "@tanstack/react-router";
-import styled from "@emotion/styled";
-import { useCounterStore } from "@/stores/useCounterStore";
-
-const Container = styled.div`
-  display: flex;
-  min-height: 80vh;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-`;
-
-const Title = styled.h1`
-  font-size: 3rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-  text-align: center;
-
-  @media (max-width: 768px) {
-    font-size: 2rem;
-  }
-`;
-
-const Subtitle = styled.p`
-  color: #6b7280;
-  margin-bottom: 3rem;
-  text-align: center;
-`;
-
-const CounterCard = styled.div`
-  background-color: white;
-  border: 1px solid #e5e7eb;
-  border-radius: 0.5rem;
-  padding: 2rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-`;
-
-const CounterTitle = styled.h2`
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  text-align: center;
-`;
-
-const CounterValue = styled.div`
-  font-size: 3rem;
-  font-weight: bold;
-  color: #2563eb;
-  text-align: center;
-  margin-bottom: 1.5rem;
-`;
-
-const ButtonGroup = styled.div`
-  display: flex;
-  gap: 0.75rem;
-  justify-content: center;
-`;
-
-const Button = styled.button<{ variant?: "primary" | "secondary" | "danger" }>`
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  border: none;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-
-  ${({ variant = "primary" }) => {
-    switch (variant) {
-      case "danger":
-        return `
-          background-color: #dc2626;
-          color: white;
-          &:hover {
-            background-color: #b91c1c;
-          }
-        `;
-      case "secondary":
-        return `
-          background-color: #6b7280;
-          color: white;
-          &:hover {
-            background-color: #4b5563;
-          }
-        `;
-      default:
-        return `
-          background-color: #2563eb;
-          color: white;
-          &:hover {
-            background-color: #1d4ed8;
-          }
-        `;
-    }
-  }}
-`;
-
-const TechList = styled.ul`
-  margin-top: 2rem;
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  justify-content: center;
-`;
-
-const TechBadge = styled.li`
-  background-color: #eff6ff;
-  color: #1e40af;
-  padding: 0.5rem 1rem;
-  border-radius: 9999px;
-  font-size: 0.875rem;
-  font-weight: 500;
-`;
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Rocket, Zap, Package, Code, Sparkles, Shield, GitBranch, Terminal } from "lucide-react";
+import * as styles from "./index.css";
 
 export const Route = createFileRoute("/")({
-  component: Index,
+  component: DocsPage,
 });
 
-function Index() {
-  const { count, increment, decrement, reset } = useCounterStore();
-
+function DocsPage() {
   return (
-    <Container>
-      <Title>Welcome to React + Vite SPA</Title>
-      <Subtitle>Modern SPA template with best practices</Subtitle>
+    <div className={styles.container}>
+      {/* Hero Section */}
+      <section className={styles.hero}>
+        <h1 className={styles.heroTitle}>⚡️ React + Vite SPA Template</h1>
+        <p className={styles.heroSubtitle}>
+          モダンで高速、そして型安全なReactアプリケーション開発のための
+          <br />
+          究極のスターターテンプレート
+        </p>
+        <div className={styles.heroButtons}>
+          <a
+            href="https://github.com/j19015/react-vite-template"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.buttonPrimary}
+          >
+            <GitBranch size={20} style={{ display: "inline", marginRight: "0.5rem" }} />
+            GitHub で見る
+          </a>
+          <Link to="/examples" className={styles.buttonSecondary}>
+            サンプルを見る
+          </Link>
+        </div>
+      </section>
 
-      <CounterCard>
-        <CounterTitle>Zustand Counter Example</CounterTitle>
-        <CounterValue>{count}</CounterValue>
-        <ButtonGroup>
-          <Button onClick={decrement}>-1</Button>
-          <Button variant="secondary" onClick={reset}>
-            Reset
-          </Button>
-          <Button onClick={increment}>+1</Button>
-        </ButtonGroup>
-      </CounterCard>
+      {/* Features Section */}
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>✨ 主な特徴</h2>
+        <div className={styles.featuresGrid}>
+          <div className={styles.featureCard}>
+            <div className={styles.featureIcon}>
+              <Zap size={48} color="#667eea" />
+            </div>
+            <h3 className={styles.featureTitle}>超高速ビルド</h3>
+            <p className={styles.featureDescription}>
+              Vite + SWC による爆速のHMRと最適化されたプロダクションビルド。
+              開発体験を劇的に向上させます。
+            </p>
+          </div>
 
-      <TechList>
-        <TechBadge>React 19</TechBadge>
-        <TechBadge>Vite</TechBadge>
-        <TechBadge>TypeScript</TechBadge>
-        <TechBadge>TanStack Router</TechBadge>
-        <TechBadge>TanStack Query</TechBadge>
-        <TechBadge>Zustand</TechBadge>
-        <TechBadge>Emotion</TechBadge>
-        <TechBadge>Axios</TechBadge>
-        <TechBadge>Vitest</TechBadge>
-      </TechList>
-    </Container>
+          <div className={styles.featureCard}>
+            <div className={styles.featureIcon}>
+              <Shield size={48} color="#667eea" />
+            </div>
+            <h3 className={styles.featureTitle}>型安全</h3>
+            <p className={styles.featureDescription}>
+              TypeScript + Zod + React Hook Form で完全な型安全性。 実行時エラーを最小限に抑えます。
+            </p>
+          </div>
+
+          <div className={styles.featureCard}>
+            <div className={styles.featureIcon}>
+              <Rocket size={48} color="#667eea" />
+            </div>
+            <h3 className={styles.featureTitle}>最新技術スタック</h3>
+            <p className={styles.featureDescription}>
+              React 19、TanStack Router、Zustand、vanilla-extract など、
+              2025年のベストプラクティスを採用。
+            </p>
+          </div>
+
+          <div className={styles.featureCard}>
+            <div className={styles.featureIcon}>
+              <Package size={48} color="#667eea" />
+            </div>
+            <h3 className={styles.featureTitle}>すぐに使える</h3>
+            <p className={styles.featureDescription}>
+              ルーティング、状態管理、API呼び出し、フォーム処理など、 必要な機能がすべて設定済み。
+            </p>
+          </div>
+
+          <div className={styles.featureCard}>
+            <div className={styles.featureIcon}>
+              <Sparkles size={48} color="#667eea" />
+            </div>
+            <h3 className={styles.featureTitle}>優れたDX</h3>
+            <p className={styles.featureDescription}>
+              ESLint、Prettier、Husky、lint-staged による 自動コード品質管理とCI/CD。
+            </p>
+          </div>
+
+          <div className={styles.featureCard}>
+            <div className={styles.featureIcon}>
+              <Code size={48} color="#667eea" />
+            </div>
+            <h3 className={styles.featureTitle}>豊富な例</h3>
+            <p className={styles.featureDescription}>
+              フォーム、アニメーション、状態管理など、 実践的なコード例が満載。すぐに学べます。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Getting Started Section */}
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>🚀 使い方</h2>
+        <div className={styles.stepsContainer}>
+          <div className={styles.stepCard}>
+            <div className={styles.stepNumber}>1</div>
+            <div className={styles.stepContent}>
+              <h3 className={styles.stepTitle}>リポジトリをクローン</h3>
+              <p className={styles.stepDescription}>
+                まずはテンプレートをローカルにクローンしましょう。
+              </p>
+              <div className={styles.codeBlock}>
+                git clone https://github.com/j19015/react-vite-template.git
+                <br />
+                cd react-vite-template
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.stepCard}>
+            <div className={styles.stepNumber}>2</div>
+            <div className={styles.stepContent}>
+              <h3 className={styles.stepTitle}>依存関係をインストール</h3>
+              <p className={styles.stepDescription}>
+                pnpm を使って必要なパッケージをインストールします。
+              </p>
+              <div className={styles.codeBlock}>pnpm install</div>
+            </div>
+          </div>
+
+          <div className={styles.stepCard}>
+            <div className={styles.stepNumber}>3</div>
+            <div className={styles.stepContent}>
+              <h3 className={styles.stepTitle}>開発サーバーを起動</h3>
+              <p className={styles.stepDescription}>
+                開発サーバーを起動して、ブラウザで確認しましょう。
+              </p>
+              <div className={styles.codeBlock}>pnpm run dev</div>
+              <p className={styles.stepDescription} style={{ marginTop: "0.75rem" }}>
+                🎉 http://localhost:5173 でアプリケーションが起動します！
+              </p>
+            </div>
+          </div>
+
+          <div className={styles.stepCard}>
+            <div className={styles.stepNumber}>4</div>
+            <div className={styles.stepContent}>
+              <h3 className={styles.stepTitle}>開発を始める</h3>
+              <p className={styles.stepDescription}>
+                src/routes/ に新しいページを追加したり、 src/components/
+                にコンポーネントを作成したりして、 自由にカスタマイズしましょう！
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Tech Stack Section */}
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>🛠️ 技術スタック</h2>
+        <div className={styles.stackGrid}>
+          <div className={styles.stackCard}>
+            <div className={styles.stackName}>React 19</div>
+            <div className={styles.stackDescription}>最新のReact</div>
+          </div>
+          <div className={styles.stackCard}>
+            <div className={styles.stackName}>Vite</div>
+            <div className={styles.stackDescription}>超高速ビルドツール</div>
+          </div>
+          <div className={styles.stackCard}>
+            <div className={styles.stackName}>TypeScript</div>
+            <div className={styles.stackDescription}>型安全な開発</div>
+          </div>
+          <div className={styles.stackCard}>
+            <div className={styles.stackName}>TanStack Router</div>
+            <div className={styles.stackDescription}>型安全なルーティング</div>
+          </div>
+          <div className={styles.stackCard}>
+            <div className={styles.stackName}>Zustand</div>
+            <div className={styles.stackDescription}>軽量状態管理</div>
+          </div>
+          <div className={styles.stackCard}>
+            <div className={styles.stackName}>TanStack Query</div>
+            <div className={styles.stackDescription}>データフェッチング</div>
+          </div>
+          <div className={styles.stackCard}>
+            <div className={styles.stackName}>vanilla-extract</div>
+            <div className={styles.stackDescription}>TypeScript CSS</div>
+          </div>
+          <div className={styles.stackCard}>
+            <div className={styles.stackName}>React Hook Form</div>
+            <div className={styles.stackDescription}>高性能フォーム</div>
+          </div>
+          <div className={styles.stackCard}>
+            <div className={styles.stackName}>Zod</div>
+            <div className={styles.stackDescription}>スキーマバリデーション</div>
+          </div>
+          <div className={styles.stackCard}>
+            <div className={styles.stackName}>Radix UI</div>
+            <div className={styles.stackDescription}>アクセシブルなUI</div>
+          </div>
+          <div className={styles.stackCard}>
+            <div className={styles.stackName}>Framer Motion</div>
+            <div className={styles.stackDescription}>アニメーション</div>
+          </div>
+          <div className={styles.stackCard}>
+            <div className={styles.stackName}>Vitest</div>
+            <div className={styles.stackDescription}>高速テスト</div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className={styles.footer}>
+        <p className={styles.footerText}>
+          <Terminal
+            size={20}
+            style={{ display: "inline", marginRight: "0.5rem", verticalAlign: "middle" }}
+          />
+          さあ、始めましょう！
+        </p>
+        <div className={styles.footerLinks}>
+          <Link to="/" className={styles.footerLink}>
+            ホーム
+          </Link>
+          <Link to="/examples" className={styles.footerLink}>
+            サンプル
+          </Link>
+          <Link to="/users" className={styles.footerLink}>
+            ユーザー
+          </Link>
+          <a
+            href="https://github.com/j19015/react-vite-template"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.footerLink}
+          >
+            GitHub
+          </a>
+        </div>
+      </footer>
+    </div>
   );
 }
