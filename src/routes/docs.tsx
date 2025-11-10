@@ -1,14 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import {
-  Rocket,
-  Zap,
-  Package,
-  Code,
-  Sparkles,
-  Shield,
-  GitBranch,
-  Terminal,
-} from "lucide-react";
+import { Rocket, Zap, Package, Code, Sparkles, Shield, GitBranch, Terminal } from "lucide-react";
 import * as styles from "./docs.css";
 
 export const Route = createFileRoute("/docs")({
@@ -20,9 +11,7 @@ function DocsPage() {
     <div className={styles.container}>
       {/* Hero Section */}
       <section className={styles.hero}>
-        <h1 className={styles.heroTitle}>
-          ⚡️ React + Vite SPA Template
-        </h1>
+        <h1 className={styles.heroTitle}>⚡️ React + Vite SPA Template</h1>
         <p className={styles.heroSubtitle}>
           モダンで高速、そして型安全なReactアプリケーション開発のための
           <br />
@@ -65,8 +54,7 @@ function DocsPage() {
             </div>
             <h3 className={styles.featureTitle}>型安全</h3>
             <p className={styles.featureDescription}>
-              TypeScript + Zod + React Hook Form で完全な型安全性。
-              実行時エラーを最小限に抑えます。
+              TypeScript + Zod + React Hook Form で完全な型安全性。 実行時エラーを最小限に抑えます。
             </p>
           </div>
 
@@ -87,8 +75,7 @@ function DocsPage() {
             </div>
             <h3 className={styles.featureTitle}>すぐに使える</h3>
             <p className={styles.featureDescription}>
-              ルーティング、状態管理、API呼び出し、フォーム処理など、
-              必要な機能がすべて設定済み。
+              ルーティング、状態管理、API呼び出し、フォーム処理など、 必要な機能がすべて設定済み。
             </p>
           </div>
 
@@ -98,8 +85,7 @@ function DocsPage() {
             </div>
             <h3 className={styles.featureTitle}>優れたDX</h3>
             <p className={styles.featureDescription}>
-              ESLint、Prettier、Husky、lint-staged による
-              自動コード品質管理とCI/CD。
+              ESLint、Prettier、Husky、lint-staged による 自動コード品質管理とCI/CD。
             </p>
           </div>
 
@@ -109,8 +95,7 @@ function DocsPage() {
             </div>
             <h3 className={styles.featureTitle}>豊富な例</h3>
             <p className={styles.featureDescription}>
-              フォーム、アニメーション、状態管理など、
-              実践的なコード例が満載。すぐに学べます。
+              フォーム、アニメーション、状態管理など、 実践的なコード例が満載。すぐに学べます。
             </p>
           </div>
         </div>
@@ -165,9 +150,8 @@ function DocsPage() {
             <div className={styles.stepContent}>
               <h3 className={styles.stepTitle}>開発を始める</h3>
               <p className={styles.stepDescription}>
-                src/routes/ に新しいページを追加したり、
-                src/components/ にコンポーネントを作成したりして、
-                自由にカスタマイズしましょう！
+                src/routes/ に新しいページを追加したり、 src/components/
+                にコンポーネントを作成したりして、 自由にカスタマイズしましょう！
               </p>
             </div>
           </div>
@@ -232,7 +216,10 @@ function DocsPage() {
       {/* Footer */}
       <footer className={styles.footer}>
         <p className={styles.footerText}>
-          <Terminal size={20} style={{ display: "inline", marginRight: "0.5rem", verticalAlign: "middle" }} />
+          <Terminal
+            size={20}
+            style={{ display: "inline", marginRight: "0.5rem", verticalAlign: "middle" }}
+          />
           さあ、始めましょう！
         </p>
         <div className={styles.footerLinks}>
