@@ -20,7 +20,10 @@ const queryClient = new QueryClient({
 });
 
 // Create a new router instance
-const router = createRouter({ routeTree });
+const router = createRouter({
+  routeTree,
+  basepath: import.meta.env.PROD ? "/react-vite-template" : "/",
+});
 
 // Register the router instance for type safety
 declare module "@tanstack/react-router" {
