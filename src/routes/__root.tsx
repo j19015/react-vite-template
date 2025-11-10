@@ -10,6 +10,9 @@ export const Route = createRootRoute({
           <Link to="/" className={styles.link}>
             Home
           </Link>
+          <Link to="/docs" className={styles.link}>
+            Docs
+          </Link>
           <Link to="/about" className={styles.link}>
             About
           </Link>
