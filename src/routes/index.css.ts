@@ -1,4 +1,16 @@
-import { style } from "@vanilla-extract/css";
+import { style, keyframes } from "@vanilla-extract/css";
+import { colors, shadows, borderRadius, transitions } from "@/styles/theme.css";
+
+const fadeInUp = keyframes({
+  "0%": {
+    opacity: 0,
+    transform: "translateY(30px)",
+  },
+  "100%": {
+    opacity: 1,
+    transform: "translateY(0)",
+  },
+});
 
 export const container = style({
   maxWidth: "1200px",
@@ -8,12 +20,25 @@ export const container = style({
 
 export const hero = style({
   textAlign: "center",
-  padding: "6rem 2rem",
-  background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-  color: "white",
-  borderRadius: "1rem",
+  padding: "8rem 2rem 6rem",
+  background: `linear-gradient(180deg, ${colors.bgPrimary} 0%, ${colors.gray50} 100%)`,
+  borderRadius: borderRadius["2xl"],
   marginBottom: "4rem",
-  boxShadow: "0 20px 60px rgba(102, 126, 234, 0.3)",
+  position: "relative",
+  overflow: "hidden",
+  border: `1px solid ${colors.gray200}`,
+  animation: `${fadeInUp} 0.8s ease-out`,
+  "::before": {
+    content: '""',
+    position: "absolute",
+    top: 0,
+    left: "-50%",
+    width: "200%",
+    height: "100%",
+    background: `radial-gradient(ellipse at center, ${colors.primary100} 0%, transparent 70%)`,
+    opacity: 0.4,
+    pointerEvents: "none",
+  },
 });
 
 export const heroTitle = style({
@@ -21,6 +46,12 @@ export const heroTitle = style({
   fontWeight: "800",
   marginBottom: "1rem",
   lineHeight: "1.2",
+  background: `linear-gradient(135deg, ${colors.gray900} 0%, ${colors.primary700} 100%)`,
+  WebkitBackgroundClip: "text",
+  WebkitTextFillColor: "transparent",
+  backgroundClip: "text",
+  position: "relative",
+  zIndex: 1,
   "@media": {
     "(max-width: 768px)": {
       fontSize: "2.5rem",
@@ -30,9 +61,11 @@ export const heroTitle = style({
 
 export const heroSubtitle = style({
   fontSize: "1.5rem",
-  fontWeight: "300",
+  fontWeight: "400",
   marginBottom: "2rem",
-  opacity: 0.95,
+  color: colors.gray700,
+  position: "relative",
+  zIndex: 1,
   "@media": {
     "(max-width: 768px)": {
       fontSize: "1.2rem",
@@ -51,22 +84,29 @@ export const button = style({
   padding: "0.875rem 2rem",
   fontSize: "1.125rem",
   fontWeight: "600",
-  borderRadius: "0.5rem",
+  borderRadius: borderRadius.lg,
   textDecoration: "none",
-  transition: "all 0.3s ease",
+  transition: `all ${transitions.base}`,
   border: "none",
   cursor: "pointer",
   display: "inline-block",
+  position: "relative",
+  zIndex: 1,
 });
 
 export const buttonPrimary = style([
   button,
   {
-    background: "white",
-    color: "#667eea",
+    background: colors.primary600,
+    color: colors.bgPrimary,
+    boxShadow: shadows.md,
     ":hover": {
+      background: colors.primary700,
       transform: "translateY(-2px)",
-      boxShadow: "0 10px 30px rgba(0, 0, 0, 0.2)",
+      boxShadow: shadows.xl,
+    },
+    ":active": {
+      transform: "translateY(0)",
     },
   },
 ]);
@@ -74,12 +114,18 @@ export const buttonPrimary = style([
 export const buttonSecondary = style([
   button,
   {
-    background: "rgba(255, 255, 255, 0.2)",
-    color: "white",
-    border: "2px solid white",
+    background: colors.bgPrimary,
+    color: colors.primary700,
+    border: `2px solid ${colors.primary300}`,
+    boxShadow: shadows.sm,
     ":hover": {
-      background: "rgba(255, 255, 255, 0.3)",
+      background: colors.primary50,
+      borderColor: colors.primary400,
       transform: "translateY(-2px)",
+      boxShadow: shadows.md,
+    },
+    ":active": {
+      transform: "translateY(0)",
     },
   },
 ]);
@@ -93,7 +139,7 @@ export const sectionTitle = style({
   fontWeight: "700",
   marginBottom: "3rem",
   textAlign: "center",
-  color: "#1a202c",
+  color: colors.gray900,
 });
 
 export const featuresGrid = style({
@@ -105,14 +151,15 @@ export const featuresGrid = style({
 
 export const featureCard = style({
   padding: "2rem",
-  background: "white",
-  borderRadius: "1rem",
-  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.07)",
-  transition: "all 0.3s ease",
-  border: "1px solid #e2e8f0",
+  background: colors.bgPrimary,
+  borderRadius: borderRadius.xl,
+  boxShadow: shadows.md,
+  transition: `all ${transitions.slow}`,
+  border: `1px solid ${colors.gray200}`,
   ":hover": {
     transform: "translateY(-4px)",
-    boxShadow: "0 12px 24px rgba(0, 0, 0, 0.15)",
+    boxShadow: shadows["2xl"],
+    borderColor: colors.primary300,
   },
 });
 
@@ -125,12 +172,12 @@ export const featureTitle = style({
   fontSize: "1.5rem",
   fontWeight: "600",
   marginBottom: "0.75rem",
-  color: "#2d3748",
+  color: colors.gray800,
 });
 
 export const featureDescription = style({
   fontSize: "1rem",
-  color: "#4a5568",
+  color: colors.gray600,
   lineHeight: "1.6",
 });
 
@@ -142,12 +189,15 @@ export const stackGrid = style({
 
 export const stackCard = style({
   padding: "1.5rem",
-  background: "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)",
-  borderRadius: "0.75rem",
+  background: `linear-gradient(135deg, ${colors.gray50} 0%, ${colors.primary50} 100%)`,
+  borderRadius: borderRadius.xl,
   textAlign: "center",
-  transition: "all 0.3s ease",
+  transition: `all ${transitions.base}`,
+  border: `1px solid ${colors.gray200}`,
   ":hover": {
     transform: "scale(1.05)",
+    borderColor: colors.primary300,
+    boxShadow: shadows.md,
   },
 });
 
@@ -155,12 +205,12 @@ export const stackName = style({
   fontSize: "1.25rem",
   fontWeight: "600",
   marginBottom: "0.5rem",
-  color: "#2d3748",
+  color: colors.gray800,
 });
 
 export const stackDescription = style({
   fontSize: "0.875rem",
-  color: "#4a5568",
+  color: colors.gray600,
 });
 
 export const stepsContainer = style({
@@ -175,10 +225,15 @@ export const stepCard = style({
   display: "flex",
   gap: "1.5rem",
   padding: "2rem",
-  background: "white",
-  borderRadius: "1rem",
-  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.07)",
-  border: "1px solid #e2e8f0",
+  background: colors.bgPrimary,
+  borderRadius: borderRadius.xl,
+  boxShadow: shadows.md,
+  border: `1px solid ${colors.gray200}`,
+  transition: `all ${transitions.base}`,
+  ":hover": {
+    borderColor: colors.primary300,
+    boxShadow: shadows.lg,
+  },
 });
 
 export const stepNumber = style({
@@ -187,12 +242,13 @@ export const stepNumber = style({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-  color: "white",
-  borderRadius: "50%",
+  background: `linear-gradient(135deg, ${colors.primary600} 0%, ${colors.primary700} 100%)`,
+  color: colors.bgPrimary,
+  borderRadius: borderRadius.full,
   fontSize: "1.5rem",
   fontWeight: "700",
   flexShrink: 0,
+  boxShadow: shadows.md,
 });
 
 export const stepContent = style({
@@ -203,38 +259,40 @@ export const stepTitle = style({
   fontSize: "1.5rem",
   fontWeight: "600",
   marginBottom: "0.5rem",
-  color: "#2d3748",
+  color: colors.gray800,
 });
 
 export const stepDescription = style({
   fontSize: "1rem",
-  color: "#4a5568",
+  color: colors.gray600,
   lineHeight: "1.6",
   marginBottom: "0.75rem",
 });
 
 export const codeBlock = style({
-  background: "#1a202c",
-  color: "#e2e8f0",
+  background: colors.gray900,
+  color: colors.gray100,
   padding: "1rem",
-  borderRadius: "0.5rem",
+  borderRadius: borderRadius.lg,
   fontFamily: "monospace",
   fontSize: "0.875rem",
   overflowX: "auto",
   marginTop: "0.75rem",
+  border: `1px solid ${colors.gray700}`,
 });
 
 export const footer = style({
   textAlign: "center",
   padding: "3rem 2rem",
-  background: "#f7fafc",
-  borderRadius: "1rem",
+  background: colors.gray50,
+  borderRadius: borderRadius.xl,
   marginTop: "5rem",
+  border: `1px solid ${colors.gray200}`,
 });
 
 export const footerText = style({
   fontSize: "1.125rem",
-  color: "#4a5568",
+  color: colors.gray600,
   marginBottom: "1rem",
 });
 
@@ -246,10 +304,12 @@ export const footerLinks = style({
 });
 
 export const footerLink = style({
-  color: "#667eea",
+  color: colors.primary600,
   textDecoration: "none",
   fontWeight: "600",
+  transition: `all ${transitions.fast}`,
   ":hover": {
+    color: colors.primary700,
     textDecoration: "underline",
   },
 });
