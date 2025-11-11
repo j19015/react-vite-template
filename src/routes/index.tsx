@@ -1,10 +1,32 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Rocket, Zap, Package, Code, Sparkles, Shield, GitBranch, Terminal } from "lucide-react";
+import { motion } from "framer-motion";
 import * as styles from "./index.css";
 
 export const Route = createFileRoute("/")({
   component: DocsPage,
 });
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+    },
+  },
+};
 
 function DocsPage() {
   return (
@@ -36,69 +58,75 @@ function DocsPage() {
       {/* Features Section */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>✨ 主な特徴</h2>
-        <div className={styles.featuresGrid}>
-          <div className={styles.featureCard}>
+        <motion.div
+          className={styles.featuresGrid}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          <motion.div className={styles.featureCard} variants={itemVariants}>
             <div className={styles.featureIcon}>
-              <Zap size={48} color="#667eea" />
+              <Zap size={48} color="#3b82f6" />
             </div>
             <h3 className={styles.featureTitle}>超高速ビルド</h3>
             <p className={styles.featureDescription}>
               Vite + SWC による爆速のHMRと最適化されたプロダクションビルド。
               開発体験を劇的に向上させます。
             </p>
-          </div>
+          </motion.div>
 
-          <div className={styles.featureCard}>
+          <motion.div className={styles.featureCard} variants={itemVariants}>
             <div className={styles.featureIcon}>
-              <Shield size={48} color="#667eea" />
+              <Shield size={48} color="#3b82f6" />
             </div>
             <h3 className={styles.featureTitle}>型安全</h3>
             <p className={styles.featureDescription}>
               TypeScript + Zod + React Hook Form で完全な型安全性。 実行時エラーを最小限に抑えます。
             </p>
-          </div>
+          </motion.div>
 
-          <div className={styles.featureCard}>
+          <motion.div className={styles.featureCard} variants={itemVariants}>
             <div className={styles.featureIcon}>
-              <Rocket size={48} color="#667eea" />
+              <Rocket size={48} color="#3b82f6" />
             </div>
             <h3 className={styles.featureTitle}>最新技術スタック</h3>
             <p className={styles.featureDescription}>
               React 19、TanStack Router、Zustand、vanilla-extract など、
               2025年のベストプラクティスを採用。
             </p>
-          </div>
+          </motion.div>
 
-          <div className={styles.featureCard}>
+          <motion.div className={styles.featureCard} variants={itemVariants}>
             <div className={styles.featureIcon}>
-              <Package size={48} color="#667eea" />
+              <Package size={48} color="#3b82f6" />
             </div>
             <h3 className={styles.featureTitle}>すぐに使える</h3>
             <p className={styles.featureDescription}>
               ルーティング、状態管理、API呼び出し、フォーム処理など、 必要な機能がすべて設定済み。
             </p>
-          </div>
+          </motion.div>
 
-          <div className={styles.featureCard}>
+          <motion.div className={styles.featureCard} variants={itemVariants}>
             <div className={styles.featureIcon}>
-              <Sparkles size={48} color="#667eea" />
+              <Sparkles size={48} color="#3b82f6" />
             </div>
             <h3 className={styles.featureTitle}>優れたDX</h3>
             <p className={styles.featureDescription}>
               ESLint、Prettier、Husky、lint-staged による 自動コード品質管理とCI/CD。
             </p>
-          </div>
+          </motion.div>
 
-          <div className={styles.featureCard}>
+          <motion.div className={styles.featureCard} variants={itemVariants}>
             <div className={styles.featureIcon}>
-              <Code size={48} color="#667eea" />
+              <Code size={48} color="#3b82f6" />
             </div>
             <h3 className={styles.featureTitle}>豊富な例</h3>
             <p className={styles.featureDescription}>
               フォーム、アニメーション、状態管理など、 実践的なコード例が満載。すぐに学べます。
             </p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* Getting Started Section */}
@@ -161,56 +189,86 @@ function DocsPage() {
       {/* Tech Stack Section */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>🛠️ 技術スタック</h2>
-        <div className={styles.stackGrid}>
-          <div className={styles.stackCard}>
+        <motion.div
+          className={styles.stackGrid}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
+          <motion.div className={styles.stackCard} variants={itemVariants}>
             <div className={styles.stackName}>React 19</div>
             <div className={styles.stackDescription}>最新のReact</div>
-          </div>
-          <div className={styles.stackCard}>
-            <div className={styles.stackName}>Vite</div>
+          </motion.div>
+          <motion.div className={styles.stackCard} variants={itemVariants}>
+            <div className={styles.stackName}>Vite 7</div>
             <div className={styles.stackDescription}>超高速ビルドツール</div>
-          </div>
-          <div className={styles.stackCard}>
+          </motion.div>
+          <motion.div className={styles.stackCard} variants={itemVariants}>
             <div className={styles.stackName}>TypeScript</div>
             <div className={styles.stackDescription}>型安全な開発</div>
-          </div>
-          <div className={styles.stackCard}>
+          </motion.div>
+          <motion.div className={styles.stackCard} variants={itemVariants}>
             <div className={styles.stackName}>TanStack Router</div>
             <div className={styles.stackDescription}>型安全なルーティング</div>
-          </div>
-          <div className={styles.stackCard}>
-            <div className={styles.stackName}>Zustand</div>
-            <div className={styles.stackDescription}>軽量状態管理</div>
-          </div>
-          <div className={styles.stackCard}>
+          </motion.div>
+          <motion.div className={styles.stackCard} variants={itemVariants}>
             <div className={styles.stackName}>TanStack Query</div>
             <div className={styles.stackDescription}>データフェッチング</div>
-          </div>
-          <div className={styles.stackCard}>
+          </motion.div>
+          <motion.div className={styles.stackCard} variants={itemVariants}>
+            <div className={styles.stackName}>Zustand</div>
+            <div className={styles.stackDescription}>軽量状態管理</div>
+          </motion.div>
+          <motion.div className={styles.stackCard} variants={itemVariants}>
+            <div className={styles.stackName}>Jotai</div>
+            <div className={styles.stackDescription}>Atomic状態管理</div>
+          </motion.div>
+          <motion.div className={styles.stackCard} variants={itemVariants}>
             <div className={styles.stackName}>vanilla-extract</div>
-            <div className={styles.stackDescription}>TypeScript CSS</div>
-          </div>
-          <div className={styles.stackCard}>
+            <div className={styles.stackDescription}>CSS-in-TypeScript</div>
+          </motion.div>
+          <motion.div className={styles.stackCard} variants={itemVariants}>
+            <div className={styles.stackName}>Emotion</div>
+            <div className={styles.stackDescription}>CSS-in-JS</div>
+          </motion.div>
+          <motion.div className={styles.stackCard} variants={itemVariants}>
             <div className={styles.stackName}>React Hook Form</div>
             <div className={styles.stackDescription}>高性能フォーム</div>
-          </div>
-          <div className={styles.stackCard}>
+          </motion.div>
+          <motion.div className={styles.stackCard} variants={itemVariants}>
             <div className={styles.stackName}>Zod</div>
             <div className={styles.stackDescription}>スキーマバリデーション</div>
-          </div>
-          <div className={styles.stackCard}>
+          </motion.div>
+          <motion.div className={styles.stackCard} variants={itemVariants}>
             <div className={styles.stackName}>Radix UI</div>
             <div className={styles.stackDescription}>アクセシブルなUI</div>
-          </div>
-          <div className={styles.stackCard}>
+          </motion.div>
+          <motion.div className={styles.stackCard} variants={itemVariants}>
             <div className={styles.stackName}>Framer Motion</div>
             <div className={styles.stackDescription}>アニメーション</div>
-          </div>
-          <div className={styles.stackCard}>
+          </motion.div>
+          <motion.div className={styles.stackCard} variants={itemVariants}>
+            <div className={styles.stackName}>i18next</div>
+            <div className={styles.stackDescription}>国際化</div>
+          </motion.div>
+          <motion.div className={styles.stackCard} variants={itemVariants}>
+            <div className={styles.stackName}>Immer</div>
+            <div className={styles.stackDescription}>イミュータブル更新</div>
+          </motion.div>
+          <motion.div className={styles.stackCard} variants={itemVariants}>
+            <div className={styles.stackName}>Axios</div>
+            <div className={styles.stackDescription}>HTTPクライアント</div>
+          </motion.div>
+          <motion.div className={styles.stackCard} variants={itemVariants}>
             <div className={styles.stackName}>Vitest</div>
             <div className={styles.stackDescription}>高速テスト</div>
-          </div>
-        </div>
+          </motion.div>
+          <motion.div className={styles.stackCard} variants={itemVariants}>
+            <div className={styles.stackName}>ESLint + Prettier</div>
+            <div className={styles.stackDescription}>コード品質</div>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* Footer */}
