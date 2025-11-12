@@ -5,7 +5,6 @@ import FormExample from "@/components/examples/FormExample";
 import RadixExample from "@/components/examples/RadixExample";
 import AnimationExample from "@/components/examples/AnimationExample";
 import IconsExample from "@/components/examples/IconsExample";
-import JotaiExample from "@/components/examples/JotaiExample";
 import ZustandExample from "@/components/examples/ZustandExample";
 import TanStackQueryExample from "@/components/examples/TanStackQueryExample";
 import AutoAnimateExample from "@/components/examples/AutoAnimateExample";
@@ -32,11 +31,6 @@ function ExamplesPage() {
         <div className={styles.section}>
           <h2 className={styles.sectionTitle}>📊 State Management</h2>
           <ZustandExample />
-        </div>
-
-        <div className={styles.section}>
-          <h2 className={styles.sectionTitle}>🔄 State Management - Jotai</h2>
-          <JotaiExample />
         </div>
 
         <div className={styles.section}>
