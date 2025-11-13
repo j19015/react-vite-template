@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "node ./scripts/dev.mjs",
     "build": "tsc -b && vite build",
     "routes:generate": "tsr generate",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
@@ -16,7 +16,9 @@
     "test:run": "vitest run",
     "test:coverage": "vitest --coverage",
     "preview": "vite preview",
-    "prepare": "husky"
+    "prepare": "husky",
+    "dev:vite": "vite",
+    "routes:watch": "tsr generate --watch"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
