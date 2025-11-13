@@ -1,0 +1,23 @@
+{
+  "welcome": {
+    "title": "Welcome to React",
+    "message": "Hello <strong>{{name}}</strong>, welcome to our application!",
+    "namePlaceholder": "Enter your name"
+  },
+  "features": {
+    "count": "You have {{count}} features"
+  },
+  "counter": {
+    "increment": "Increment",
+    "decrement": "Decrement",
+    "reset": "Reset",
+    "count": "Count: {{count}}"
+  },
+  "navigation": {
+    "home": "Home",
+    "about": "About",
+    "users": "Users",
+    "examples": "Examples"
+  },
+  "description": "A modern React + Vite SPA template"
+}

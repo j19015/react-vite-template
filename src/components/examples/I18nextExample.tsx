@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { useTranslation, Trans } from "react-i18next";
+
+import { changeLanguage as updateAppLanguage } from "@/i18n/config";
 import * as styles from "./ExampleCard.css";
 
 export default function I18nextExample() {
   const { t, i18n } = useTranslation();
   const [name, setName] = useState("User");
 
-  const changeLanguage = (lng: string) => {
-    void i18n.changeLanguage(lng);
+  const handleLanguageChange = (language: string) => {
+    void updateAppLanguage(language);
   };
 
   return (
@@ -27,19 +29,19 @@ export default function I18nextExample() {
           </h4>
           <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
             <button
-              onClick={() => changeLanguage("en")}
+              onClick={() => handleLanguageChange("en")}
               className={i18n.language === "en" ? styles.buttonPrimary : styles.button}
             >
               English
             </button>
             <button
-              onClick={() => changeLanguage("ja")}
+              onClick={() => handleLanguageChange("ja")}
               className={i18n.language === "ja" ? styles.buttonPrimary : styles.button}
             >
               日本語
             </button>
             <button
-              onClick={() => changeLanguage("es")}
+              onClick={() => handleLanguageChange("es")}
               className={i18n.language === "es" ? styles.buttonPrimary : styles.button}
             >
               Español
@@ -56,19 +58,18 @@ export default function I18nextExample() {
           }}
         >
           <h4 style={{ fontSize: "1.25rem", fontWeight: "600", marginBottom: "0.5rem" }}>
-            {t("welcome.title", { defaultValue: "Welcome" })}
+            {t("welcome.title")}
           </h4>
           <p style={{ color: "#4b5563", marginBottom: "1rem" }}>
             <Trans
               i18nKey="welcome.message"
               values={{ name }}
-              defaults="Hello <strong>{{name}}</strong>, welcome to our application!"
               components={{ strong: <strong /> }}
             />
           </p>
           <input
             type="text"
-            placeholder={t("welcome.namePlaceholder", { defaultValue: "Enter your name" })}
+            placeholder={t("welcome.namePlaceholder")}
             value={name}
             onChange={(e) => setName(e.target.value)}
             style={{
@@ -88,7 +89,6 @@ export default function I18nextExample() {
           <p style={{ fontSize: "0.875rem", color: "#1e40af", marginTop: "0.5rem" }}>
             {t("features.count", {
               count: 5,
-              defaultValue: "You have {{count}} features",
             })}
           </p>
         </div>
@@ -97,6 +97,7 @@ export default function I18nextExample() {
           <pre>
             {`// Using i18next
 import { useTranslation, Trans } from 'react-i18next';
+import { changeLanguage } from '@/i18n/config';
 
 function Component() {
   const { t, i18n } = useTranslation();
@@ -108,7 +109,7 @@ function Component() {
   const message = t('welcome.message', { name: 'User' });
 
   // Change language
-  i18n.changeLanguage('ja');
+  void changeLanguage('ja');
 
   return (
     <Trans
